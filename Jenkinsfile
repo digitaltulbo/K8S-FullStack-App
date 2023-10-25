@@ -102,8 +102,8 @@ pipeline{
                     sh "git config --global user.name ${gitName}"
 
                
-                    sh "sed -i 's/frontend:.*\$/frontend:${currentBuild.number}/g' web-deployment.yaml"
-                    sh "sed -i 's/backend:.*\$/backend:${currentBuild.number}/g' api-deployment.yaml"
+                    sh "sed -i 's/frontend:.*\$/frontend:${currentBuild.number}/g' web-project.yaml"
+                    sh "sed -i 's/backend:.*\$/backend:${currentBuild.number}/g' api-project.yaml"
                     sh "sed -i 's/mysql:.*\$/mysql:${currentBuild.number}/g' mysql-deployment.yaml"
 
                     sh "git add ."
@@ -113,7 +113,7 @@ pipeline{
 
                     withCredentials([gitUsernamePassword(credentialsId: githubCredential,
                                      gitToolName: 'git-tool')]) {
-                        sh "git remote set-url origin https://github.com/mgKang3646/Helm-Repository.git"
+                        sh "git remote set-url origin https://github.com/digitaltulbo/ingress-project.git"
                         sh "git push -u origin main"
                     }
                 }
