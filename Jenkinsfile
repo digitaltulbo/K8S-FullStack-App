@@ -96,7 +96,7 @@ pipeline{
                 {
                     git branch: "main",
                     credentialsId: githubCredential,
-                    url: 'https://github.com/mgKang3646/Helm-Repository.git'
+                    url: 'https://github.com/digitaltulbo/ingress-project.git'
 
                     sh "git config --global user.email ${gitEmail}"
                     sh "git config --global user.name ${gitName}"
