@@ -2,14 +2,14 @@ pipeline{
     agent any
 
     environment {
-        dockerHubRegistry = 'lordofkangs'
+        dockerHubRegistry = 'digitaltulbo'
         dockerHubRegistryCredential = 'docker-hub'
         githubCredential = 'github_cred'
-        gitEmail = 'lordofkangs@naver.com'
-        gitName = 'mgKang3646'
-        imageFrontend = 'k8s_frontend'
-        imageBackend = 'k8s_backend'
-        imageMysql= 'k8s_mysql'
+        gitEmail = 'djzepssa@gmail.com'
+        gitName = 'digitaltulbo'
+        imageFrontend = 'frontend'
+        imageBackend = 'backend'
+        imageMysql= 'mysql'
     }
 
     stages {
@@ -101,14 +101,10 @@ pipeline{
                     sh "git config --global user.email ${gitEmail}"
                     sh "git config --global user.name ${gitName}"
 
-                    sh "sed -i 's/tag:.*\$/tag: ${currentBuild.number}/g' ./mysql-db/values.yaml"
-                    sh "sed -i 's/tag:.*\$/tag: ${currentBuild.number}/g' ./nodejs-backend/values.yaml"
-                    sh "sed -i 's/tag:.*\$/tag: ${currentBuild.number}/g' ./react-frontend/values.yaml"
-                    
-                    sh "helm package react-frontend"
-                    sh "helm package nodejs-backend"
-                    sh "helm package mysql-db"
-                    sh "helm repo index ./"
+               
+                    sh "sed -i 's/frontend:.*\$/frontend:${currentBuild.number}/g' web-deployment.yaml"
+                    sh "sed -i 's/backend:.*\$/backend:${currentBuild.number}/g' api-deployment.yaml"
+                    sh "sed -i 's/mysql:.*\$/mysql:${currentBuild.number}/g' mysql-deployment.yaml"
 
                     sh "git add ."
                     sh "git commit -m '[UPDATE] k8s ${currentBuild.number} image versioning'"
